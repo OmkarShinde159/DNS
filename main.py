@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from src.api.routes.v1 import user_routes
+from src.api.routes.v1 import login_auth_routes, signup_route,logout_route
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import PlainTextResponse
 
@@ -9,14 +9,9 @@ app = FastAPI()
 async def validation_exception_handler(request, exc):
     return PlainTextResponse(str(exc), status_code=400)
 
-app.include_router(user_routes.router)
-
-# @app.get("/")
-# def root():
-#     return {"message": "Hello World"}
-
-# if __name__ == "__main__":
-#     uvicorn.run(app, host="0.0.0.0", port=8000)
+app.include_router(signup_route.router)
+app.include_router(login_auth_routes.router)
+app.include_router(logout_route.router)
 
 import datetime
 
